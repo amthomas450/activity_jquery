@@ -1,0 +1,124 @@
+<!-- Anthony Thomas 9/26/26-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Uses of jQuery</title>
+
+   <!-- Local JQuery-->
+     <script src="./resources/jquery.min.js"></script>
+    
+    <!-- fallback to CDN if local fails -->
+    <script>
+        if (typeof jQuery === "undefined") {
+            console.log("Local JQuery failed, Loading CDN version");
+
+            document.write('<script src="https://code.jquery.com/jquery-4.0.0.min.js"><\/script>');
+        } else {
+            console.log("Local JQuery loaded successfully.")
+        }
+    </script>
+
+    <!-- jQuery Validation Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.22.1/dist/jquery.validate.min.js"></script>
+
+    <script>
+
+        $(document).ready(function() {
+
+            $("#feedback_form").validate({
+                rules: {
+                    name: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                        minlength: 8
+                    },
+                    message: {
+                        required: true,
+                        minlength: 10
+                    }
+                },
+
+                messages: {
+                    name: "Please enter your name",
+                    email: {
+                        required: "Email is required",
+                        email: "Enter a valid email address",
+                        minlength: "Email must be at least 8 characters long"
+                    },
+                    message: {
+                        required: "Please enter a message",
+                        minlength: "Message must be at least 10 characters long"
+                    }
+                },
+
+                /* Count number of invalid fields */
+
+                invalidHandler: function (event, validator) {
+                    let errors = validator.numberOfInvalids();
+
+                    if (errors) {
+                        $(".form_errors").text(
+                            "You missed " + errors + " required field(s). Please correct them."
+                        );
+                    } else {
+                        $(".form_errors").text("");
+                    }
+                 }
+            });
+
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function() {
+        $("p").css("color", "#006241");
+    });
+    </script>
+
+</head>
+<body>
+    <header>
+    <h1>Common Uses of jQuery</h1>
+    </header>
+
+    <p>jQuery takes a lot of tasks that require many lines of code to accomplish and wraps them into methods that you can call with a single line of code.
+       <br>
+        It simplifies a lot of things from JavaScript like DOM manipulation and CSS manipulation.
+        <br>
+        Although there are many JavaScript libraries, jQuery is probably the most popular. Many of the biggest companies on the Web use jQuery, such as Google and Microsoft.
+    </p>
+
+    <main>
+
+        <form id="feedback_form">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name">
+            <br>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+            <br>
+
+             <label for="message">Message</label>
+            <textarea id="message" name="message"></textarea>
+            <br>
+
+            <button type="submit">Submit</button>
+
+
+        </form>
+
+        <div class="form_errors"></div>
+
+    </main>
+
+</body>
+</html>
